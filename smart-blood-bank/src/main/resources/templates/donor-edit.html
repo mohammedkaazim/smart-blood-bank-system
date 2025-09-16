@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit My Profile</title>
+    <style>
+        body {
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #f6d365, #fda085);
+          margin: 0;
+          padding: 30px;
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .form-box {
+          background: #fff;
+          padding: 35px;
+          border-radius: 16px;
+          width: 700px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        h2 {
+          text-align: center;
+          color: #e65100;
+          margin-bottom: 20px;
+        }
+        form {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+        }
+        input, select, textarea {
+          padding: 12px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+        }
+        textarea {
+          grid-column: span 2;
+          min-height: 80px;
+        }
+        .full-row {
+          grid-column: span 2;
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+        }
+        button {
+          grid-column: span 2;
+          padding: 14px;
+          background: #e65100;
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: bold;
+        }
+        button:hover {
+          background: #bf360c;
+        }
+    </style>
+</head>
+<body>
+<div class="form-box">
+    <h2>Edit My Profile</h2>
+
+    <!-- ⚡ Adjust action if controller expects /donors/update/{id} -->
+    <form th:action="@{/donors/profile/edit}" th:object="${donor}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <input type="text" th:field="*{fullName}" placeholder="Full Name" required>
+        <input type="number" th:field="*{age}" placeholder="Age" min="18" max="65" required>
+
+        <select th:field="*{gender}" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option th:value="Male">Male</option>
+            <option th:value="Female">Female</option>
+            <option th:value="Other">Other</option>
+        </select>
+
+        <select th:field="*{bloodGroup}">
+            <option th:value="'A+'">A+</option>
+            <option th:value="'A-'">A-</option>
+            <option th:value="'B+'">B+</option>
+            <option th:value="'B-'">B-</option>
+            <option th:value="'AB+'">AB+</option>
+            <option th:value="'AB-'">AB-</option>
+            <option th:value="'O+'">O+</option>
+            <option th:value="'O-'">O-</option>
+        </select>
+
+        <input type="date" th:field="*{dob}" required>
+        <input type="text" th:field="*{contactNumber}" placeholder="Contact Number" required>
+        <input type="email" th:field="*{email}" placeholder="Email" readonly>
+
+        <input type="text" th:field="*{city}" placeholder="City" required>
+        <input type="text" th:field="*{state}" placeholder="State">
+        <input type="text" th:field="*{pincode}" placeholder="Pincode" required>
+        <input type="date" th:field="*{lastDonationDate}">
+
+        <div style="grid-column: span 2;">
+            <label>
+                <input type="checkbox" th:field="*{hasChronicDiseases}" /> Chronic Diseases
+            </label>
+            <label>
+                <input type="checkbox" th:field="*{hasRecentSurgery}" /> Recent Surgery
+            </label>
+            <label>
+                <input type="checkbox" th:field="*{hasAllergies}" /> Allergies
+            </label>
+        </div>
+
+        <textarea th:field="*{otherMedicalConditions}" placeholder="Other Medical Conditions"></textarea>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>
