@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blood Stock - Smart Blood Bank</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #2c5364, #203a43, #0f2027);
+            background-size: 300% 300%;
+            animation: gradientShift 15s ease infinite;
+            color: #f1f1f1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .navbar h1 {
+            font-size: 24px;
+            color: #ffb347;
+        }
+        .logout-btn {
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            padding: 8px 18px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #43cea2, #185a9d);
+            transform: scale(1.08);
+        }
+
+        /* Content */
+        .content {
+            padding: 40px;
+        }
+        .content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ff6a00;
+            text-align: center;
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            text-align: center;
+            transition: 0.4s ease;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+        .blood-group {
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffb347;
+        }
+        .units {
+            font-size: 18px;
+            margin: 12px 0;
+            color: #a8e6cf;
+        }
+        .last-updated {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            margin: 8px 5px 0;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-view {
+            background: linear-gradient(90deg, #36d1dc, #5b86e5);
+            color: white;
+        }
+        .btn-view:hover {
+            background: linear-gradient(90deg, #ff6a00, #ffb347);
+        }
+        .btn-delete {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+        .btn-delete:hover {
+            background: linear-gradient(90deg, #ee0979, #ff6a00);
+        }
+        .btn-add {
+            background: linear-gradient(90deg, #43cea2, #185a9d);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-bottom: 25px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-add:hover {
+            background: linear-gradient(90deg, #ff6a00, #ffb347);
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <h1>🧪 Blood Stock</h1>
+    <a th:href="@{/logout}" class="logout-btn">Logout</a>
+</nav>
+
+<!-- Content -->
+<div class="content">
+    <h2>Manage Blood Stock</h2>
+    <div style="text-align: center;">
+        <a th:href="@{/bloodstock/add}" class="btn-add">➕ Add Blood Stock</a>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid">
+        <div class="card" th:each="stock : ${bloodStocks}">
+            <div class="blood-group" th:text="${stock.bloodGroup}">A+</div>
+            <div class="units" th:text="'Units Available: ' + ${stock.unitsAvailable}">Units: 15</div>
+            <div class="last-updated" th:text="'Last Updated: ' + ${#temporals.format(stock.lastUpdated, 'dd MMM yyyy HH:mm')}">
+                Last Updated: 12 Sep 2025 14:45
+            </div>
+            <a th:href="@{'/bloodstock/edit/' + ${stock.id}}" class="btn btn-view">👁 View</a>
+            <a th:href="@{'/bloodstock/delete/' + ${stock.id}}" class="btn btn-delete">🗑 Delete</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
