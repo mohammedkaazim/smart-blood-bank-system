@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Hospital | Smart Blood Bank</title>
+    <style>
+        /* Background gradient animation */
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ff6a00, #ee0979, #ff416c, #ff4b2b);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Delete box */
+        .delete-box {
+            width: 50%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease;
+            color: #fff;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Heading */
+        h1 {
+            color: #ffdddd;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 10px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .yes {
+            background: linear-gradient(90deg, #ff1e1e, #cc0000);
+        }
+        .no {
+            background: linear-gradient(90deg, #00c851, #007e33);
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+
+        /* Icon */
+        .warning-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #ffb3b3;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+<div class="delete-box">
+    <div class="warning-icon">⚠️</div>
+    <h1>Delete Hospital</h1>
+    <p>Are you sure you want to delete <b th:text="${hospital.name}"></b>?</p>
+    <a th:href="@{/hospitals/delete/{id}(id=${hospital.id})}" class="btn yes">❌ Yes, Delete</a>
+    <a href="/hospitals" class="btn no">✅ Cancel</a>
+</div>
+</body>
+</html>
