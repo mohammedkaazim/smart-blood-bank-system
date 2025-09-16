@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Details | Smart Blood Bank</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(230, 57, 70, 0.85), rgba(230, 57, 70, 0.85)),
+                        url('https://img.freepik.com/free-photo/blur-hospital_1203-7973.jpg') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 950px;
+            margin: -40px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            animation: slideUp 1s ease;
+        }
+
+        /* Details Grid */
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .icon {
+            font-size: 1.8rem;
+            color: #e63946;
+        }
+        .card strong {
+            display: block;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .card span {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .actions a {
+            display: inline-block;
+            padding: 12px 22px;
+            margin: 0 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(90deg, #e63946, #ff4b2b);
+            transition: 0.3s;
+        }
+        .actions a:hover {
+            background: linear-gradient(90deg, #ff6b6b, #e63946);
+            transform: scale(1.07);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        @keyframes slideUp {
+            from {opacity: 0; transform: translateY(40px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Banner -->
+<div class="hero">
+    <h1 th:text="${hospital.name}">Hospital Name</h1>
+    <p>Smart Blood Bank – Trusted Partner in Saving Lives</p>
+</div>
+
+<!-- Details Container -->
+<div class="container">
+    <div class="details">
+        <div class="card">
+            <div class="icon">📧</div>
+            <div><strong>Email</strong><span th:text="${hospital.email}"></span></div>
+        </div>
+        <div class="card">
+            <div class="icon">🏙️</div>
+            <div><strong>City</strong><span th:text="${hospital.city}"></span></div>
+        </div>
+        <div class="card">
+            <div class="icon">📍</div>
+            <div><strong>Address</strong><span th:text="${hospital.address}"></span></div>
+        </div>
+        <div class="card">
+            <div class="icon">🌍</div>
+            <div><strong>State</strong><span th:text="${hospital.state}"></span></div>
+        </div>
+        <div class="card">
+            <div class="icon">🔢</div>
+            <div><strong>Pincode</strong><span th:text="${hospital.pincode}"></span></div>
+        </div>
+        <div class="card">
+            <div class="icon">📞</div>
+            <div><strong>Contact</strong><span th:text="${hospital.contactNumber}"></span></div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+        <a th:href="@{/hospitals}">⬅ Back to List</a>
+        <a th:href="@{|/hospitals/edit/${hospital.id}|}">✏️ Edit Hospital</a>
+    </div>
+</div>
+
+</body>
+</html>
