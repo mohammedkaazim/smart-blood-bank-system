@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Hospital | Smart Blood Bank</title>
+    <style>
+        /* Background gradient animation */
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fad390, #f6d365);
+            background-size: 400% 400%;
+            animation: bgMove 12s ease infinite;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Form container */
+        .form-container {
+            width: 65%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            animation: fadeUp 1s ease;
+        }
+
+        @keyframes fadeUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 25px;
+            font-size: 28px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Form grid */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: 0.3s;
+        }
+
+        input:focus {
+            box-shadow: 0 0 10px rgba(255, 100, 100, 0.7);
+            transform: scale(1.03);
+        }
+
+        /* Button */
+        button {
+            grid-column: span 2;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #ff6a00, #ffb347);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+            transform: scale(1.07);
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>➕ Add Hospital</h1>
+    <form th:action="@{/hospitals/save}" th:object="${hospital}" method="post">
+        <input type="text" th:field="*{name}" placeholder="Hospital Name" required>
+        <input type="email" th:field="*{email}" placeholder="Email" required>
+        <input type="text" th:field="*{address}" placeholder="Address" required>
+        <input type="text" th:field="*{city}" placeholder="City" required>
+        <input type="text" th:field="*{state}" placeholder="State" required>
+        <input type="text" th:field="*{pincode}" placeholder="Pincode" required>
+        <input type="text" th:field="*{contactNumber}" placeholder="Contact Number" required>
+        <button type="submit">Save Hospital</button>
+    </form>
+</div>
+</body>
+</html>
