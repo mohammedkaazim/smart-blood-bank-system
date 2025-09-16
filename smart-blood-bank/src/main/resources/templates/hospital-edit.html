@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Hospital | Smart Blood Bank</title>
+    <style>
+        /* Background gradient */
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #6dd5ed, #2193b0);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Form container */
+        .form-container {
+            width: 65%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(14px);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            color: white;
+            animation: slideIn 1s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Heading */
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        h1 span {
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Form grid */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 25px; /* spacing between fields */
+        }
+
+        /* Floating label input */
+        .input-group {
+            position: relative;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.85);
+            font-size: 15px;
+            outline: none;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+        .input-group input:hover,
+        .input-group input:focus {
+            box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+            transform: scale(1.02);
+        }
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: #555;
+            font-size: 14px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -6px;
+            left: 10px;
+            font-size: 12px;
+            color: #1976d2;
+            background: #fff;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
+        /* Button */
+        button {
+            grid-column: span 2;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #1976d2, #0d47a1);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #42a5f5, #1976d2);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1><span>✏️</span> Edit Hospital</h1>
+
+    <form th:action="@{/hospitals/update/{id}(id=${hospital.id})}"
+          th:object="${hospital}" method="post">
+
+        <div class="input-group">
+            <input type="text" th:field="*{name}" placeholder=" " required>
+            <label>Hospital Name</label>
+        </div>
+        <div class="input-group">
+            <input type="email" th:field="*{email}" placeholder=" " required>
+            <label>Email</label>
+        </div>
+        <div class="input-group">
+            <input type="text" th:field="*{address}" placeholder=" " required>
+            <label>Address</label>
+        </div>
+        <div class="input-group">
+            <input type="text" th:field="*{city}" placeholder=" " required>
+            <label>City</label>
+        </div>
+        <div class="input-group">
+            <input type="text" th:field="*{state}" placeholder=" " required>
+            <label>State</label>
+        </div>
+        <div class="input-group">
+            <input type="text" th:field="*{pincode}" placeholder=" " required>
+            <label>Pincode</label>
+        </div>
+        <div class="input-group">
+            <input type="text" th:field="*{contactNumber}" placeholder=" " required>
+            <label>Contact Number</label>
+        </div>
+
+        <button type="submit">💾 Update Hospital</button>
+    </form>
+</div>
+</body>
+</html>
