@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Smart Blood Bank</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* Background rich animated gradient */
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #4b1248, #53354a);
+            background-size: 500% 500%;
+            animation: gradientMove 20s ease infinite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .navbar h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            color: #00c6ff;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00c6ff, 0 0 20px #0072ff; }
+            to { text-shadow: 0 0 20px #ff6a00, 0 0 40px #ffb347; }
+        }
+
+        .navbar .logout-btn {
+            text-decoration: none;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            padding: 8px 18px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .navbar .logout-btn:hover {
+            background: linear-gradient(90deg, #ff6a00, #ffb347);
+            transform: scale(1.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 230px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 18px 25px;
+            color: #f1f1f1;
+            font-size: 17px;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid #00c6ff;
+            transform: translateX(10px);
+        }
+
+        /* Content */
+        .content {
+            margin-left: 250px;
+            padding: 50px;
+            color: #fff;
+        }
+
+        .content h2 {
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .about {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Feature cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.07);
+            background: rgba(255,255,255,0.2);
+        }
+        .card h3 {
+            margin: 10px 0;
+            font-size: 20px;
+            color: #00c6ff;
+        }
+        .card p {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        /* Quotes */
+        .quotes {
+            margin-top: 40px;
+            font-size: 20px;
+            font-style: italic;
+            text-align: center;
+            color: #ffeeba;
+            animation: fadeQuote 3s infinite alternate;
+        }
+
+        @keyframes fadeQuote {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <h1>Smart Blood Bank</h1>
+    <a th:href="@{/logout}" class="logout-btn">Logout</a>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a th:href="@{/hospitals}">🏥 Hospitals</a>
+    <a th:href="@{/donors}">🩸 Donors</a>
+    <a th:href="@{/bloodstock}">🧪 Blood Stock</a>
+    <a th:href="@{/requests}">📩 Requests</a>
+    <a th:href="@{/dashboard}">📊 Dashboard</a>
+</div>
+
+<!-- Content -->
+<div class="content">
+    <h2>Welcome to Smart Blood Bank</h2>
+    <div class="about">
+        <p>
+            Smart Blood Bank is a modern platform designed to connect <b>hospitals, donors, and administrators</b>
+            in a seamless way. Manage blood requests, donor availability, and stock levels with ease while ensuring
+            quick response in emergencies.
+        </p>
+    </div>
+
+    <div class="features">
+        <div class="card">
+            <h3>🏥 Hospitals</h3>
+            <p>Register and request blood directly from the system.</p>
+        </div>
+        <div class="card">
+            <h3>🩸 Donors</h3>
+            <p>Keep track of active and available donors in your city.</p>
+        </div>
+        <div class="card">
+            <h3>🧪 Blood Stock</h3>
+            <p>Monitor available blood units in real-time across hospitals.</p>
+        </div>
+        <div class="card">
+            <h3>📩 Requests</h3>
+            <p>Handle blood requests quickly and efficiently.</p>
+        </div>
+        <div class="card">
+            <h3>📊 Dashboard</h3>
+            <p>Get insights into donors, hospitals, and requests with live stats.</p>
+        </div>
+    </div>
+
+    <div class="quotes" id="quoteBox">"Donate blood, save lives."</div>
+</div>
+
+<script>
+    // Sidebar click effect
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+            link.style.transition = "0.2s";
+            link.style.transform = "scale(1.1)";
+            setTimeout(() => link.style.transform = "scale(1)", 200);
+        });
+    });
+
+    // Rotating quotes
+    const quotes = [
+        "🩸 Donate blood, save lives.",
+        "❤️ A drop of blood is a drop of life.",
+        "🌍 Be a hero, give the gift of blood.",
+        "💉 Your blood can give someone another chance at life."
+    ];
+    let index = 0;
+    const quoteBox = document.getElementById("quoteBox");
+
+    setInterval(() => {
+        index = (index + 1) % quotes.length;
+        quoteBox.textContent = quotes[index];
+    }, 4000);
+</script>
+
+</body>
+</html>
