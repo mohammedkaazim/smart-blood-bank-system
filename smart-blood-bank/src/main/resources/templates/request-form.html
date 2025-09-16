@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Blood</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(to right, #ff4e50, #f9d423); }
+        .card { background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn { background: linear-gradient(to right, #56ab2f, #a8e063); transition: all 0.3s ease; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(86,171,47,0.5); }
+    </style>
+</head>
+<body class="flex justify-center items-center h-screen">
+
+<div class="card w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-4">🩸 Request Blood</h1>
+
+    <form th:action="@{/requests}" th:object="${request}" method="post" class="space-y-4">
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Blood Group</label>
+            <input type="text" th:field="*{bloodGroup}" placeholder="Ex: A+, B-, O+"
+                   class="w-full border border-gray-300 p-3 rounded focus:ring-2 focus:ring-red-400 focus:outline-none" required/>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Units Required</label>
+            <input type="number" th:field="*{units}" placeholder="Enter units required" min="1"
+                   class="w-full border border-gray-300 p-3 rounded focus:ring-2 focus:ring-red-400 focus:outline-none" required/>
+        </div>
+
+        <button type="submit" class="btn text-white px-6 py-3 rounded w-full font-bold">Submit Request</button>
+    </form>
+</div>
+
+</body>
+</html>
