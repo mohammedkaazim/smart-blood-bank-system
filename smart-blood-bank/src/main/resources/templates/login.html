@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Smart Blood Bank</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #8b0000, #b71c1c, #d32f2f, #ff1744);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            text-align: center;
+            width: 350px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.05); }
+        }
+
+
+        .login-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            box-shadow: 0 0 12px #ff1744;
+            transform: scale(1.05);
+        }
+
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff1744, #b71c1c);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(90deg, #d32f2f, #ff1744);
+            transform: scale(1.07);
+            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+        }
+
+
+        .blood-cell {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.25);
+            animation: float 15s infinite;
+            filter: blur(2px);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-80px) translateX(40px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blood-cell" style="width:90px; height:90px; top:15%; left:10%;"></div>
+<div class="blood-cell" style="width:120px; height:120px; top:70%; left:20%;"></div>
+<div class="blood-cell" style="width:70px; height:70px; top:50%; left:85%;"></div>
+<div class="blood-cell" style="width:100px; height:100px; top:80%; left:75%;"></div>
+
+<div class="login-container">
+    <h1>❤️ Smart Blood Bank</h1>
+
+    <form th:action="@{/login}" method="post">
+        <input type="text" name="username" placeholder="Username" required class="login-input">
+        <input type="password" name="password" placeholder="Password" required class="login-input">
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <a th:href="@{/donors/login}"
+           style="display:inline-block; padding:10px 20px; border-radius:30px;
+                  background:linear-gradient(90deg,#2575fc,#6a11cb);
+                  color:white; text-decoration:none; font-weight:bold;
+                  transition:all 0.3s;">
+            Login as Donor
+        </a>
+    </div>
+</div>
+
+<script>
+    const form = document.querySelector("form");
+    const btn = document.querySelector(".login-btn");
+
+    form.addEventListener("submit", (e) => {
+        const user = form.username.value.trim();
+        const pass = form.password.value.trim();
+        if (!user || !pass) {
+            e.preventDefault();
+            btn.style.animation = "shake 0.4s";
+            setTimeout(() => btn.style.animation = "", 400);
+        }
+    });
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }`;
+    document.head.appendChild(style);
+</script>
+
+</body>
+</html>
