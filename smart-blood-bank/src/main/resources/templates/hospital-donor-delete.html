@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Donor</title>
+    <style>
+        body {
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+          display: flex; justify-content: center; align-items: center;
+          height: 100vh; margin: 0;
+        }
+        .box {
+          background: rgba(255,255,255,0.9);
+          padding: 30px; border-radius: 14px;
+          text-align: center; width: 400px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+          animation: fadeIn 1s;
+        }
+        h1 { color: #c62828; margin-bottom: 10px; }
+        p { margin-bottom: 20px; }
+        .btn {
+          padding: 12px 20px; margin: 0 8px;
+          border-radius: 8px; text-decoration: none; color: white;
+          transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.1); }
+        .yes { background: #c62828; }
+        .no { background: #388e3c; }
+        @keyframes fadeIn { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1> Delete Donor</h1>
+    <p>Are you sure you want to delete <b th:text="${donor.fullName}"></b>?</p>
+
+    <!-- Use POST form for delete -->
+    <form th:action="@{/hospitals/{hospitalId}/donors/delete/{id}(hospitalId=${hospitalId}, id=${donor.id})}"
+          method="post" style="display:inline;">
+        <button type="submit" class="btn yes">Yes, Delete</button>
+    </form>
+
+    <a th:href="@{/hospitals/{hospitalId}/donors(hospitalId=${hospitalId})}" class="btn no">Cancel</a>
+</div>
+</body>
+</html>
