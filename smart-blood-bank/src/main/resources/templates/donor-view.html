@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Details</title>
+    <style>
+        body {
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #89f7fe, #66a6ff);
+          margin: 0;
+          padding: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .profile-box {
+          background: #fff;
+          padding: 35px;
+          border-radius: 18px;
+          width: 650px;
+          box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+          animation: slideUp 1s ease;
+        }
+
+        @keyframes slideUp {
+          from { transform: translateY(40px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+          text-align: center;
+          color: #1565c0;
+          margin-bottom: 20px;
+        }
+
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px 20px;
+        }
+
+        .info-item {
+          background: #f7f9fc;
+          padding: 12px 15px;
+          border-radius: 10px;
+          box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+          transition: transform 0.3s;
+        }
+
+        .info-item:hover {
+          transform: translateY(-5px);
+        }
+
+        .info-item strong {
+          color: #444;
+          display: block;
+          font-size: 0.9rem;
+          margin-bottom: 5px;
+        }
+
+        .info-item span {
+          font-size: 1rem;
+          color: #222;
+          font-weight: 500;
+        }
+
+        .blood-tag {
+          display: inline-block;
+          padding: 8px 14px;
+          background: #e53935;
+          color: #fff;
+          font-weight: bold;
+          border-radius: 20px;
+          margin-bottom: 15px;
+        }
+
+        .actions {
+          text-align: center;
+          margin-top: 25px;
+        }
+
+        .actions a {
+          display: inline-block;
+          margin: 0 10px;
+          padding: 12px 20px;
+          border-radius: 10px;
+          text-decoration: none;
+          font-weight: bold;
+          color: white;
+          background: #1565c0;
+          transition: 0.3s;
+        }
+
+        .actions a:hover {
+          background: #0d47a1;
+          transform: scale(1.05);
+        }
+
+        .actions .danger {
+          background: #c62828;
+        }
+
+        .actions .danger:hover {
+          background: #8e0000;
+        }
+    </style>
+</head>
+<body>
+<div class="profile-box">
+    <h2>👤 Donor Profile</h2>
+
+    <div class="blood-tag" th:text="${donor.bloodGroup}">A+</div>
+
+    <div class="info-grid">
+        <div class="info-item">
+            <strong>Full Name</strong>
+            <span th:text="${donor.fullName}">John Doe</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Age</strong>
+            <span th:text="${donor.age}">30</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Gender</strong>
+            <span th:text="${donor.gender}">Male</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Contact</strong>
+            <span th:text="${donor.contactNumber}">9876543210</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Email</strong>
+            <span th:text="${donor.email}">john@example.com</span>
+        </div>
+
+        <div class="info-item">
+            <strong>City</strong>
+            <span th:text="${donor.city}">Hyderabad</span>
+        </div>
+
+        <div class="info-item">
+            <strong>State</strong>
+            <span th:text="${donor.state}">Telangana</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Pincode</strong>
+            <span th:text="${donor.pincode}">500001</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Last Donation Date</strong>
+            <span th:text="${donor.lastDonationDate}">2025-06-15</span>
+        </div>
+
+        <div class="info-item">
+            <strong>Availability</strong>
+            <span th:text="${donor.available ? 'Available' : 'Not Available'}"></span>
+        </div>
+
+        <div class="info-item">
+            <strong>Medical Conditions</strong>
+            <span th:text="${donor.otherMedicalConditions}">None</span>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/donors/edit/{id}(id=${donor.id})}">✏ Edit</a>
+        <a th:href="@{/donors/delete/{id}(id=${donor.id})}" class="danger">🗑 Delete</a>
+        <a th:href="@{/donors}">⬅ Back</a>
+    </div>
+</div>
+</body>
+</html>
