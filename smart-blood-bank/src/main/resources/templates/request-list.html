@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blood Requests</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #ff9966, #ff5e62);
+            margin: 0;
+            color: #fff;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+        }
+        .navbar h1 { font-size: 22px; color: #ffe259; }
+        .content { padding: 30px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: 0.4s ease;
+            animation: fadeIn 1s ease;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(0,0,0,0.6); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: translateY(0);} }
+        .blood-group { font-size: 26px; font-weight: bold; color: #ffe259; }
+        .units { margin: 10px 0; color: #e0f7fa; }
+        .status { font-size: 14px; margin-top: 8px; opacity: 0.9; }
+        .btn {
+            padding: 8px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-approve { background: linear-gradient(90deg, #56ab2f, #a8e063); color: white; }
+        .btn-reject { background: linear-gradient(90deg, #ff416c, #ff4b2b); color: white; }
+        .btn-approve:hover, .btn-reject:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <h1>📋 Blood Requests</h1>
+    <a th:href="@{/logout}" class="btn-reject">Logout</a>
+</nav>
+
+<!-- Content -->
+<div class="content">
+    <h2 style="text-align:center; color:#fff176;">Manage Requests</h2>
+
+    <!-- Show request blood button only for hospitals -->
+    <div style="text-align:center; margin-bottom:20px;"
+         th:if="${#authorization.expression('hasRole(''HOSPITAL'')')}">
+        <a th:href="@{/requests/new}" class="btn btn-approve">
+            ➕ Request Blood
+        </a>
+    </div>
+
+    <div class="grid">
+        <div class="card" th:each="req : ${requests}">
+            <div class="blood-group" th:text="${req.bloodGroup}">A+</div>
+            <div class="units" th:text="'Units: ' + ${req.units}">Units: 2</div>
+            <div class="status" th:text="'Status: ' + ${req.status}">Status: PENDING</div>
+
+            <!-- Admin controls -->
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{'/requests/approve/' + ${req.id}}" class="btn btn-approve">✔ Approve</a>
+                <a th:href="@{'/requests/reject/' + ${req.id}}" class="btn btn-reject">✖ Reject</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
