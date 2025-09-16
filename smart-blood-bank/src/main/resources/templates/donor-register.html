@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Registration</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .register-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        h2 { text-align: center; color: #c62828; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; }
+        label { font-size: 14px; margin-bottom: 5px; color: #444; }
+        input, select, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #c62828;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #8e0000; }
+    </style>
+</head>
+<body>
+<div class="register-card">
+    <h2>🩸 Donor Registration</h2>
+    <form th:action="@{/donors/register}" method="post" th:object="${donor}">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" th:field="*{fullName}" required/>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" th:field="*{dob}" required/>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" required/>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" required/>
+
+        <label for="contactNumber">Contact Number</label>
+        <input type="text" id="contactNumber" th:field="*{contactNumber}" required/>
+
+        <label for="gender">Gender</label>
+        <select id="gender" th:field="*{gender}" required>
+            <option value="">-- Select --</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
+        </select>
+
+        <label for="bloodGroup">Blood Group</label>
+        <select id="bloodGroup" th:field="*{bloodGroup}" required>
+            <option value="">-- Select --</option>
+            <option value="A+">A+</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B-">B-</option>
+            <option value="O+">O+</option><option value="O-">O-</option>
+            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+        </select>
+
+        <label for="age">Age</label>
+        <input type="number" id="age" th:field="*{age}" min="18" max="65" required/>
+
+        <label for="city">City</label>
+        <input type="text" id="city" th:field="*{city}" required/>
+
+        <label for="state">State</label>
+        <input type="text" id="state" th:field="*{state}" required/>
+
+        <label for="pincode">Pincode</label>
+        <input type="text" id="pincode" th:field="*{pincode}" required/>
+
+        <label for="lastDonationDate">Last Donation Date</label>
+        <input type="date" id="lastDonationDate" th:field="*{lastDonationDate}"/>
+
+        <label><input type="checkbox" th:field="*{hasChronicDiseases}"/> Chronic Diseases</label>
+        <label><input type="checkbox" th:field="*{hasRecentSurgery}"/> Recent Surgery</label>
+        <label><input type="checkbox" th:field="*{hasAllergies}"/> Allergies</label>
+
+        <label for="otherMedicalConditions">Other Medical Conditions</label>
+        <textarea id="otherMedicalConditions" th:field="*{otherMedicalConditions}" rows="2"></textarea>
+
+        <label for="available">Available to Donate?</label>
+        <select id="available" th:field="*{available}">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+</body>
+</html>
