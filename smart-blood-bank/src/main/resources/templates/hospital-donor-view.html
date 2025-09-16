@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Profile</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f7f7f7; }
+        .profile {
+          max-width: 600px; margin: 40px auto; background: white;
+          padding: 30px; border-radius: 14px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+          animation: fadeIn 1s ease;
+        }
+        h1 { text-align: center; margin-bottom: 10px; color: #d32f2f; }
+        .blood-badge {
+          display: block; margin: 10px auto; width: fit-content;
+          background: #d32f2f; color: white; font-size: 1.2rem; font-weight: bold;
+          padding: 8px 16px; border-radius: 30px;
+          animation: pulse 1.5s infinite;
+        }
+        p { margin: 8px 0; font-size: 1rem; }
+        strong { color: #444; }
+        .back {
+          display: block; margin: 20px auto 0;
+          text-align: center; padding: 10px 20px;
+          border-radius: 8px; background: #1976d2; color: white;
+          text-decoration: none; transition: 0.3s;
+        }
+        .back:hover { background: #0d47a1; transform: scale(1.05); }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes pulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.1);} }
+    </style>
+</head>
+<body>
+<div class="profile">
+    <h1 th:text="${donor.fullName}">Donor Name</h1>
+    <span class="blood-badge" th:text="${donor.bloodGroup}">O+</span>
+    <p><strong>Age:</strong> <span th:text="${donor.age}"></span></p>
+    <p><strong>Gender:</strong> <span th:text="${donor.gender}"></span></p>
+    <p><strong>Contact:</strong> <span th:text="${donor.contactNumber}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${donor.email}"></span></p>
+    <p><strong>City:</strong> <span th:text="${donor.city}"></span></p>
+    <p><strong>Last Donation:</strong> <span th:text="${donor.lastDonationDate}"></span></p>
+    <p><strong>Conditions:</strong> <span th:text="${donor.otherMedicalConditions}"></span></p>
+    <a th:href="@{/hospitals/{hospitalId}/donors(hospitalId=${hospitalId})}" class="back">⬅ Back</a>
+</div>
+</body>
+</html>
